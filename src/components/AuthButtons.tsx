@@ -6,7 +6,7 @@ const AuthButtons:React.FC = () => {
     return (
 
         <Fragment>
-            <Button>Log in</Button>
+            <Button variant={'outline'}>Log in</Button>
             <Button>Sign Up</Button>
         </Fragment>
 
