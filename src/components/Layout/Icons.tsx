@@ -51,7 +51,7 @@ const Icons:React.FC<IconsProps> = () => {
             </Flex>
 
             </Flex>
-           <>
+           <Flex align={'center'} justify={'center'}>
            <Flex 
                 mr={1.5} 
                 ml={1.5} 
@@ -81,7 +81,7 @@ const Icons:React.FC<IconsProps> = () => {
                 <Icon as={BsPlus} fontSize={20}/>
             </Flex>
            
-           </>
+           </Flex>
     
         {/* <Button onClick={() => signOut(auth)}>Log Out</Button> */}
         </Flex>
