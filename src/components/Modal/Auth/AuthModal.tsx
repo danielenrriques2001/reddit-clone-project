@@ -84,7 +84,9 @@ const AuthModal:React.FC = () => {
 
                       </>
 
-                    )  :  <ResetPassword/>
+                    )  :  <ResetPassword toggleView={function (view: 'login' | 'signup' | 'resetPassword'): void {
+                      throw new Error('Function not implemented.');
+                    } }/>
                   }
 
                   
