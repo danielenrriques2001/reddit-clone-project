@@ -1,6 +1,6 @@
 import { authModalState } from "@/atoms/authModalAtom";
-import { Flex } from "@chakra-ui/react";
-import {useRecoilValue} from 'recoil'
+import { Flex, Text } from "@chakra-ui/react";
+import {useRecoilValue, useSetRecoilState} from 'recoil'
 import Login from "./Login";
 import SignUp from "./SignUp";
 type TypeName= {
@@ -10,6 +10,8 @@ type TypeName= {
 const  AuthInputs:React.FC<TypeName> = () => {
 
     const modalState = useRecoilValue(authModalState)
+    const setAuthModalState = useSetRecoilState(authModalState)
+
     
     return (
 
@@ -21,6 +23,10 @@ const  AuthInputs:React.FC<TypeName> = () => {
         >
             {modalState.view === 'login' && <Login/>}
             {modalState.view === 'signup' && <SignUp/>}
+          
+
+
+            
 
 
         </Flex>
