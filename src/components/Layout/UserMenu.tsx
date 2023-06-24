@@ -10,7 +10,8 @@ import {
     MenuDivider,
     Button,
     Icon,
-    Flex
+    Flex,
+    Text
   } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { User, signOut } from 'firebase/auth';
@@ -32,13 +33,31 @@ const UserMenu:React.FC<UserMenuProps> = ({user}) => {
     <Menu>
     <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
         
-                <Flex>
+                <Flex
+                    gap={2}
+                >
                      <Icon 
                         as={GiRamProfile}
                         fontSize={24}
                         color={'gray.300'}
                         
                         />
+                        <Flex
+                             display={{base: 'none', md: 'flex'}}
+                             direction={'column'}
+                             fontSize={'8pt'}
+                             align={'center'}
+                             justify={'center'}
+                             mr={8}
+                        >
+                        <Text
+                            fontSize={'9pt'}
+                            fontWeight={400}
+                        >
+                            {user?.displayName || user?.email?.split('@')[0]}
+                        </Text>
+
+                        </Flex>
                 </Flex>
                
             
