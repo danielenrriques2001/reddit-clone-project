@@ -24,6 +24,7 @@ const Directory:React.FC = () => {
             borderRadius={4}
             _hover={{outline: '1px solid', outlineColor: 'gray.200'}}
             ml={{base: 0, md: 2}}
+            mr={{lg: 2}}
 
         >
 
@@ -31,6 +32,9 @@ const Directory:React.FC = () => {
                 align={'center'}
                 justify={'center'}
                 gap={2}
+                width={{base: 'auto', lg: '200px'}}
+                
+
             >
               <Flex
                 align={'center'}
@@ -54,6 +58,7 @@ const Directory:React.FC = () => {
 
 
             <MenuList>
+                {/**Commnunities */}
         <MenuItem>
             <Flex
                 align={'center'}
@@ -62,7 +67,7 @@ const Directory:React.FC = () => {
                 onClick={() => signOut(auth)}
             >
                 <Icon as={IoIosLogOut}/>
-                Log Out
+                    Communities
 
             </Flex>
         </MenuItem>
