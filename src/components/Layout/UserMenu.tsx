@@ -31,7 +31,11 @@ const UserMenu:React.FC<UserMenuProps> = ({user}) => {
 
     return(
     <Menu>
-    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+    <MenuButton 
+        as={Button} 
+        rightIcon={<ChevronDownIcon />}
+        variant={'ghost'}
+        >
         
                 <Flex
                     gap={2}
