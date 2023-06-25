@@ -12,6 +12,7 @@ import { signOut } from 'firebase/auth';
 import { IoIosLogOut } from 'react-icons/io';
 import { auth } from '@/firebase/clientApp';
 import { BiHome } from 'react-icons/bi';
+import Communities from './Communities';
 
 const Directory:React.FC = () => {
     
@@ -58,19 +59,9 @@ const Directory:React.FC = () => {
 
 
             <MenuList>
-                {/**Commnunities */}
-        <MenuItem>
-            <Flex
-                align={'center'}
-                justify={'center'}
-                gap={2}
-                onClick={() => signOut(auth)}
-            >
-                <Icon as={IoIosLogOut}/>
-                    Communities
 
-            </Flex>
-        </MenuItem>
+            <Communities/>
+                
        
     </MenuList>
     

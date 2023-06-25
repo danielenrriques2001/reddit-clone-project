@@ -14,7 +14,7 @@ export const theme = extendTheme({
         body: 'Open Sans, sans-serif'
     },
 
-    style: {
+    styles: {
         global: () => ({
             body: {
                 bg: 'gray.200',
