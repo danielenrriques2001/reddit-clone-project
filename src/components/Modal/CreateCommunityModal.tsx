@@ -18,6 +18,9 @@ import {
 import { CgProfile } from 'react-icons/cg';
 import { BsEyeFill } from 'react-icons/bs';
 import { BiLock } from 'react-icons/bi';
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { auth, firestore } from '@/firebase/clientApp';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 type CreateCommunityModalProps = {
     open: boolean;
@@ -30,6 +33,9 @@ const CreateCommunityModal:React.FC<CreateCommunityModalProps> = ({open, handleC
     const [communityName, setCommunityName] = useState('');
     const [communityType, setCommunityType] = useState('public');
     const [charRemaining, setCharRemaining] = useState(21);
+    const [error, setError] = useState('');
+    const [user] = useAuthState(auth);
+    const [loading, SetLoading] = useState(false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -45,10 +51,56 @@ const CreateCommunityModal:React.FC<CreateCommunityModalProps> = ({open, handleC
         setCommunityType(event.target.name);
     }
 
-    const handleCreateCommunity = () => {
+    const handleCreateCommunity = async () => {
         //validate the community name
+        const format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
-        // create the community document in firestore
+        if(format.test(communityName) || communityName.length < 3) {
+          setError('Community names must be among 3-21 characters, and can only contain letters, numbers or underscore')
+          return;
+
+        }
+
+        setError('');
+
+
+          SetLoading(true)
+
+          try {
+
+            const communityDocRef = doc(firestore, 'communities', communityName);
+          const communityDoc = await getDoc(communityDocRef)
+
+          //check if community exists
+          if(communityDoc.exists()) {
+            throw new Error(`Sorry, ${communityName}  is already taken. Try another`)
+          }
+
+
+          await setDoc(communityDocRef, {
+              //creator Id
+              creatorId: user?.uid,
+              createdAt: serverTimestamp(),
+              numberOfMembers: 1,
+              privacyType: communityType
+          })
+            
+          } catch (error: any) {
+              console.log('handleCreateCommunityeRROR', error)
+              setError(error.message)
+          } finally {
+            SetLoading(false)
+          }
+
+
+          
+
+          
+
+
+
+
+
     }
     
     return (
@@ -103,6 +155,10 @@ const CreateCommunityModal:React.FC<CreateCommunityModalProps> = ({open, handleC
                        <Text fontSize={'10pt'} color={charRemaining === 0 ? 'red' : 'gray.500'}>
                       {charRemaining}  Characters remaining 
                        </Text>
+
+                       {
+                        <Text fontSize={'9pt'} color={'red'} padding={1}>{error}</Text>
+                       }
 
                        <Box my={4}>
                             <Text fontWeight={700} fontSize={15}>Community Type</Text>
@@ -161,8 +217,8 @@ const CreateCommunityModal:React.FC<CreateCommunityModalProps> = ({open, handleC
                 </Button>
                 <Button 
                     height={'30px'} 
-                   
-                    onClick={() => {}}
+                    isLoading={loading}
+                    onClick={() => handleCreateCommunity()}
                     >Create Community</Button>
               </ModalFooter>
             </ModalContent>
