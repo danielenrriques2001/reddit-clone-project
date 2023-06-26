@@ -52,6 +52,7 @@ const CreateCommunityModal:React.FC<CreateCommunityModalProps> = ({open, handleC
     }
 
     const handleCreateCommunity = async () => {
+      setError('');
         //validate the community name
         const format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
@@ -61,14 +62,14 @@ const CreateCommunityModal:React.FC<CreateCommunityModalProps> = ({open, handleC
 
         }
 
-        setError('');
+       
 
 
           SetLoading(true)
 
           try {
 
-            const communityDocRef = doc(firestore, 'communities', communityName);
+          const communityDocRef = doc(firestore, 'communities', communityName);
           const communityDoc = await getDoc(communityDocRef)
 
           //check if community exists
@@ -91,14 +92,6 @@ const CreateCommunityModal:React.FC<CreateCommunityModalProps> = ({open, handleC
           } finally {
             SetLoading(false)
           }
-
-
-          
-
-          
-
-
-
 
 
     }
@@ -205,7 +198,7 @@ const CreateCommunityModal:React.FC<CreateCommunityModalProps> = ({open, handleC
                 
               </Box>
 
-    
+              
               <ModalFooter bg='gray.100' borderRadius={'0px 0px 10px 10px'}>
                 <Button 
                     colorScheme='blue' 
