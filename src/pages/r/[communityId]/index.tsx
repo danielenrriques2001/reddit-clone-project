@@ -1,6 +1,7 @@
 import { Community } from '@/atoms/communitiesAtom';
 import CommunityNotFound from '@/components/Layout/404/CommunityNotFound';
 import Header from '@/components/Layout/Community/Header';
+import PageContentLayout from '@/components/Layout/PageContentLayout';
 import { firestore } from '@/firebase/clientApp';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetServerSidePropsContext } from 'next';
@@ -13,7 +14,7 @@ type CommunityPageProps = {
 
 const CommunityPage:React.FC<CommunityPageProps> = ({communityData}) => {
 
-    console.log('here is the data:', communityData)
+    
 
     if(!communityData) {
             return (
@@ -24,6 +25,10 @@ const CommunityPage:React.FC<CommunityPageProps> = ({communityData}) => {
     return  (
         <>
             <Header communityData={communityData}/>
+            <PageContentLayout>
+                <>first</>
+                <>second</>
+            </PageContentLayout>
         </>
     )
 }

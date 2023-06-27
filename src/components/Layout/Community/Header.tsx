@@ -2,14 +2,23 @@ import { Community } from '@/atoms/communitiesAtom';
 import { Box, Flex, Icon, Image, Text, Button } from '@chakra-ui/react';
 import React from 'react';
 import { BsReddit } from 'react-icons/bs';
-
+import useCommunityData from '@/hooks/useCommunityData';
 type HeaderProps = {
     communityData: Community
     
 };
 
 const Header:React.FC<HeaderProps> = ({communityData}) => {
-    const isJoined = false;
+    
+    const {
+        onJoinOrLeaveCommunity, 
+        communityStateValue,
+        loading
+        } = useCommunityData();
+                    // with this !! you can booleanize a return 
+    const isJoined = !!communityStateValue.mySnippets.find(item => item.communityId === communityData.id);
+    
+
     
     return (
         <Flex 
@@ -83,7 +92,8 @@ const Header:React.FC<HeaderProps> = ({communityData}) => {
                             variant={isJoined ? 'outline' : 'solid'}
                             height={'30px'}
                             px={6}
-                            onClick={() => {}}
+                            onClick={() => onJoinOrLeaveCommunity(communityData, isJoined)}
+                            isLoading={loading}
                             >
                             {isJoined ? 'Joined' : 'Join'}
                         </Button>

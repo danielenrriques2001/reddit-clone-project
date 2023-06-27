@@ -19,6 +19,8 @@ import {GiRamProfile, GiPlagueDoctorProfile} from 'react-icons/gi'
 import {CgProfile} from 'react-icons/cg'
 import {IoIosLogOut} from 'react-icons/io'
 import { auth } from '@/firebase/clientApp';
+import { useResetRecoilState } from 'recoil';
+import { communityState } from '@/atoms/communitiesAtom';
 type UserMenuProps = {
 
     user?: User | null;
@@ -26,6 +28,21 @@ type UserMenuProps = {
 };
 
 const UserMenu:React.FC<UserMenuProps> = ({user}) => {
+
+    const resetCommunityState = useResetRecoilState(communityState);
+
+
+    const logOut = async () => {
+       await signOut(auth)
+
+         //clear Community State 
+       resetCommunityState()
+
+     
+       
+
+
+    }
     
     if (!user) return   <GiPlagueDoctorProfile/>
 
@@ -87,7 +104,7 @@ const UserMenu:React.FC<UserMenuProps> = ({user}) => {
                 align={'center'}
                 justify={'center'}
                 gap={2}
-                onClick={() => signOut(auth)}
+                onClick={() => logOut()}
             >
                 <Icon as={IoIosLogOut}/>
                 Log Out
