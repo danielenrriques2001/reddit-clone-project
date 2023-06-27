@@ -18,9 +18,17 @@ const Header:React.FC<HeaderProps> = ({communityData}) => {
             height={'146px'}  
         >
 
-            <Box height={'50%'} backgroundColor={'blue.400'}/>
-            <Flex justify={'center'} bg={'white'} flexGrow={1} >
-                <Flex width={'95%'} maxWidth={'860px'} border={'1px solid'}>
+            <Box 
+                height={'50%'} 
+                backgroundColor={'blue.400'}
+                />
+            <Flex 
+                justify={'center'} 
+                bg={'white'} 
+                flexGrow={1} >
+                <Flex 
+                    width={'95%'} 
+                    maxWidth={'860px'} >
 
                     {
                         communityData.imageUrl ? (
@@ -45,8 +53,13 @@ const Header:React.FC<HeaderProps> = ({communityData}) => {
                         />
                         )
                     }
-                    <Flex padding={'10px 16px'}>
-                        <Flex direction={'column'} mr={6} >
+                    <Flex 
+                        padding={'10px 16px'}
+                    >
+                        <Flex 
+                            direction={'column'} 
+                            mr={6} 
+                            >
                             <Text 
                                 fontWeight={800}
                                 fontSize={'16pt'}
