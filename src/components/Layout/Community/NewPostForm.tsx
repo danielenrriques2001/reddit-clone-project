@@ -1,13 +1,18 @@
+import { Post } from '@/atoms/postAtom';
 import ImageUpload from '@/components/Posts/ImageUpload';
 import TabItem  from '@/components/Posts/TabItem';
 import TextInputs from '@/components/Posts/TextInputs';
 import { Flex, Icon } from '@chakra-ui/react';
+import { User } from 'firebase/auth';
+import { Timestamp, serverTimestamp } from 'firebase/firestore';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { BiPoll } from 'react-icons/bi';
 import { BsLink, BsMic } from 'react-icons/bs';
 import { IoDocumentText, IoImageOutline } from 'react-icons/io5';
 
 type NewPostFormProps = {
+    user: User; 
     
 };
 
@@ -45,8 +50,9 @@ export type TabItemType = {
 
 
 
-const NewPostForm:React.FC<NewPostFormProps> = () => {
+const NewPostForm:React.FC<NewPostFormProps> = ({user}) => {
 
+    const router = useRouter();
     const [selectedTab, setSelectedTab] = useState(FORM_TABS[0].title);
     const [textInput, setTextInput] = useState({
         title: '',
@@ -56,7 +62,37 @@ const NewPostForm:React.FC<NewPostFormProps> = () => {
 
     const [selectedFile, setSelectedFile] = useState<string>();
 
-    const handleCreatePost = async () => {};
+    const handleCreatePost = async () => {
+
+        const {communityId} = router.query
+
+        //create a new post object => type post
+        const newPost: Post = {
+            communityId: communityId as string,
+            creatorId: user?.uid,
+            creatorDisplayName: user.email!.split('@')[0],
+            title: textInput.title,
+            body: textInput.body,
+            numberOfComments: 0,
+            voteStatus: 0,
+            createdAt: serverTimestamp() as Timestamp,
+        };
+
+        //store the post in db
+        try {
+            
+        } catch (error) {
+            console.log('HandleCreatePost ERROR-----', newPost)
+        }
+
+        //check for selectedFile
+            // - true
+            //take the image and store in storage.
+
+
+        //redirect the use to the community page
+        router.push('')
+    };
 
     const onSelectImage =  (event: React.ChangeEvent<HTMLInputElement>) => {
         const reader = new FileReader();
